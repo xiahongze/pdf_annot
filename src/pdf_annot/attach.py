@@ -38,12 +38,13 @@ def attact_annotation(annot: Annotation, doc: fitz.Document):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        "attach JSON annotations to a PDF and save a new PDF in the same folder (with '- annotated' appended)")
     parser.add_argument('-p', '--pdf', required=True)
     parser.add_argument('-a', '--annots', nargs="+",
                         help='annotation jsons, one annotation per line')
     parser.add_argument('--prune', action='store_true',
-                        help='prune old annotations from pdf')
+                        help='prune old annotations from the pdf')
     args = parser.parse_args()
 
     doc: fitz.Document = fitz.open(args.pdf)
@@ -62,7 +63,7 @@ def main():
 
     path_pdf = Path(args.pdf)
     path_out = path_pdf.with_name(f"{path_pdf.stem} - annotated.pdf")
-    doc.save(path_out.as_posix())
+    doc.save(path_out.as_posix(), garbage=4, deflate=1)
 
 
 if __name__ == "__main__":

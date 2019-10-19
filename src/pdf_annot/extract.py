@@ -21,7 +21,8 @@ def extract_annotations(doc: fitz.Document):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        "extract annotations from PDF and save as JSON in the same folder")
     parser.add_argument('-p', '--pdf', required=True)
     args = parser.parse_args()
 
